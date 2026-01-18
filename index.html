@@ -1,40 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Happy Birthday Tanu SJ</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Shree Ji</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Fireworks canvas -->
 <canvas id="fireworks"></canvas>
 
+<!-- Birthday Card -->
 <div class="card">
-
-  <h1>🎂 Happy Birthday Tanu SJ 🎂</h1>
-
+  <h1>🎂 Happy Birthday TANU SJ 🎂</h1>
   <p class="msg">
-    May wish Shree Ji (SJ) complete your all wishes which you want in your life  💖<br>
-    Always keep smiling in your life  ✨
+    May wish SHREE (SJ) COMPLETE YOUR ALL WISHES 💖<br>
+    Your smile lights up  world and always be happy in your life ✨
   </p>
-
   <div class="photo-frame">
-    <img src="tanu.jpg">
+    <img src="tanu.jpg" alt="Shree Ji">
   </div>
 
-  <audio controls autoplay loop>
+  <!-- Tap to play music (mobile friendly) -->
+  <button id="playMusic" class="music-btn">🎵 Tap to Play Birthday Song</button>
+  <audio id="birthdayAudio" loop>
     <source src="birthday.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Memories Link -->
   <a class="memory-btn" href="PASTE_GOOGLE_DRIVE_LINK_HERE" target="_blank">
     💝 Our Beautiful Memories
   </a>
-
 </div>
 
 <script>
+// FIREWORKS
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -45,7 +48,6 @@ function Firework() {
   this.y = Math.random() * canvas.height / 2;
   this.color = `hsl(${Math.random()*360},100%,50%)`;
   this.particles = [];
-
   for (let i = 0; i < 60; i++) {
     this.particles.push({
       x: this.x,
@@ -58,33 +60,38 @@ function Firework() {
 }
 
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  fireworks.forEach((fw, i) => {
-    fw.particles.forEach(p => {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  fireworks.forEach((fw,i)=>{
+    fw.particles.forEach(p=>{
       p.x += Math.cos(p.angle) * p.speed;
       p.y += Math.sin(p.angle) * p.speed;
       p.life--;
-
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+      ctx.arc(p.x,p.y,2,0,Math.PI*2);
       ctx.fillStyle = fw.color;
       ctx.fill();
     });
-
-    fw.particles = fw.particles.filter(p => p.life > 0);
-    if (fw.particles.length === 0) fireworks.splice(i, 1);
+    fw.particles = fw.particles.filter(p=>p.life>0);
+    if(fw.particles.length===0) fireworks.splice(i,1);
   });
-
   requestAnimationFrame(animate);
 }
 
-setInterval(() => fireworks.push(new Firework()), 900);
+setInterval(()=>fireworks.push(new Firework()),900);
 animate();
-</script>
 
+// MUSIC TAP (Mobile friendly)
+const audio = document.getElementById("birthdayAudio");
+const btn = document.getElementById("playMusic");
+btn.addEventListener("click", ()=>{
+  audio.play();
+  btn.style.display = "none"; // hide button after playing
+});
+</script>
 </body>
 </html>
+
+
 
 
 
